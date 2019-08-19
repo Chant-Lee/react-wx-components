@@ -1,0 +1,22 @@
+{
+  "name": "react-wx-components",
+  "version": "1.0.0",
+  "description": "微信小程序组件在 react 中的实现",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chant-Lee/react-wx-components.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Rick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chant-Lee/react-wx-components/issues"
+  },
+  "homepage": "https://github.com/Chant-Lee/react-wx-components#readme"
+}
