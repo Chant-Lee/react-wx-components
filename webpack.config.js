@@ -4,8 +4,6 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 
-const publicUrl = '/public'
-
 module.exports = {
   entry: {
     main: path.join(__dirname, '/src/index.tsx')
@@ -65,6 +63,9 @@ module.exports = {
           },
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
           }
         ]
       }

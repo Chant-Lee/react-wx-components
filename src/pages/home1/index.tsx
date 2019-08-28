@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 
-import './index.css'
+import './index.scss'
 
-import Image from '../../components/image'
+import ImageCss from '../../components/image-css'
 
 import { IMG_LIST } from '../../project/config'
 
-class Home extends Component {
+class Home1 extends Component {
   render() {
     return (
       <div className="home">
         {IMG_LIST.map((item, index) => {
-          return <img key={index} src={item.url} />
+          return <ImageCss key={index} src={item.url} />
         })}
-        <Image />
       </div>
     )
   }
 }
 
-export default Home
+export default Home1
