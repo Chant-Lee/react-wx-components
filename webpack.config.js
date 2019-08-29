@@ -1,8 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: {
@@ -10,24 +10,19 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-
-    filename: 'js/main.js',
-
-    // chunk: 单独拆分出来的 bundle，name即为chunk的名称
+    filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',
-
-    // publicPath + chunkFilename 为打包后生成的html文件请求 chunkFile 的路径
-    // publicPath + 图片的URL 为打包后生成的html文件请求图片的路径，其他静态资源文件同理
     publicPath: '/'
   },
   devServer: {
     inline: true,
     hot: true,
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     port: 5000,
     contentBase: path.resolve(__dirname, '/dist'),
     compress: true,
-    disableHostCheck: true
+    disableHostCheck: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -59,7 +54,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'style-loader'
+            loader: MiniCssExtractPlugin.loader
           },
           {
             loader: 'css-loader'
@@ -86,19 +81,18 @@ module.exports = {
       minify: {
         removeComments: false, //移除HTML中的注释
         collapseWhitespace: false //删除空白符与换行符
-      }
+      },
+      favicon: path.resolve(__dirname, './public/favicon.ico')
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: ''
     }),
     new ManifestPlugin({
-      fileName: 'asset-manifest.json'
+      fileName: 'manifest.json'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: './public/favicon.ico',
-        to: './favicon.ico'
-      }
-    ])
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[id].[hash].css'
+    })
   ]
 }

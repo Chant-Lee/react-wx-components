@@ -1,24 +1,17 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import BasicRoute from './route'
-import './app.css'
+import './app.scss'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <div className="app">
+        <header className="app-header">
+          <Link to="/lazy/img">图片懒加载 css</Link>
+          <Link to="/lazy/img">图片加载 css</Link>
+          <Link to="/inter/img">图片</Link>
         </header>
         <BasicRoute />
       </div>

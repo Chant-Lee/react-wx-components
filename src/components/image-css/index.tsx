@@ -12,10 +12,16 @@ class ImageCss extends Component<ImagePropsDT, ImageState> {
     mode: Mode.ScaleToFill,
     style: {},
     lazyLoad: false,
+    offset: 0,
     onError: (...args: any[]): void => {}
   }
 
-  handleScroll = this.throttle(this._handleScroll, 100)
+  handleScroll = () => {}
+
+  constructor(props) {
+    super(props)
+    this.handleScroll = this.throttle(this._handleScroll, 100)
+  }
   imgRef = null
 
   state: ImageState = {
@@ -79,7 +85,7 @@ class ImageCss extends Component<ImagePropsDT, ImageState> {
     }
   }
 
-  _handleScroll() {
+  _handleScroll = () => {
     const { offset = 0 } = this.props // 偏移量
 
     const { nodeTop, nodeBottom } = this.getNodeTop()
@@ -94,7 +100,8 @@ class ImageCss extends Component<ImagePropsDT, ImageState> {
           isLoaded: true
         },
         () => {
-          // findDOMNode(this).children[0].src = this.props.src
+          const imgNode = findDOMNode(this).firstChild as HTMLImageElement
+          imgNode.src = this.props.src
         }
       )
       window.removeEventListener('scroll', this.handleScroll)
@@ -105,12 +112,13 @@ class ImageCss extends Component<ImagePropsDT, ImageState> {
   getNodeTop = () => {
     const viewTop = this.getScrollTop()
 
-    const img = findDOMNode(this) // 当前节点
-    // const nodeTop = img.getBoundingClientRect().top + viewTop
-    // const nodeBottom = nodeTop + img.offsetHeight
+    // 当前节点
+    const img = findDOMNode(this).firstChild as HTMLImageElement
+    const nodeTop = img.getBoundingClientRect().top + viewTop
+    const nodeBottom = nodeTop + img.offsetHeight
     return {
-      nodeTop: viewTop,
-      nodeBottom: viewTop
+      nodeTop,
+      nodeBottom
     }
   }
 
